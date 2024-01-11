@@ -10,6 +10,7 @@ import (
 	vm15scenario "github.com/multiversx/mx-chain-vm-go/scenario"
 	vm15wasmer "github.com/multiversx/mx-chain-vm-go/wasmer"
 	vm15wasmer2 "github.com/multiversx/mx-chain-vm-go/wasmer2"
+	vm14scenario "github.com/multiversx/mx-chain-vm-v1_4-go/scenario"
 	cli "github.com/urfave/cli/v2"
 )
 
@@ -76,7 +77,7 @@ func (*runConfig) ParseFlags(cCtx *cli.Context) scenclibase.CLIRunOptions {
 		}
 		vmBuilder = vm15Builder
 	case vm14FlagValue:
-		panic("VM 1.4 not yet supported")
+		vmBuilder = vm14scenario.NewScenarioVMHostBuilder()
 	default:
 		panic(fmt.Sprintf("invalid vm flag: %s", vmFlagStr))
 	}

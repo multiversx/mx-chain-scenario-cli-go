@@ -3,8 +3,9 @@ module github.com/multiversx/mx-chain-scenario-cli-go
 go 1.20
 
 require (
-	github.com/multiversx/mx-chain-scenario-go v1.2.2-0.20240108093039-bf78bdfe32ae
-	github.com/multiversx/mx-chain-vm-go v1.5.23-0.20240108094239-6848306a0d55
+	github.com/multiversx/mx-chain-scenario-go v1.2.2-0.20240111035159-6f630626b903
+	github.com/multiversx/mx-chain-vm-go v1.5.23-0.20240111035925-1b66e5a96e8d
+	github.com/multiversx/mx-chain-vm-v1_4-go v1.4.93-0.20240111073521-3f1080ebc47a
 	github.com/urfave/cli/v2 v2.27.1
 )
 
@@ -22,7 +23,7 @@ require (
 	github.com/herumi/bls-go-binary v1.28.2 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/mr-tron/base58 v1.2.0 // indirect
-	github.com/multiversx/mx-chain-core-go v1.2.13 // indirect
+	github.com/multiversx/mx-chain-core-go v1.2.14 // indirect
 	github.com/multiversx/mx-chain-crypto-go v1.2.8 // indirect
 	github.com/multiversx/mx-chain-logger-go v1.0.13 // indirect
 	github.com/multiversx/mx-chain-vm-common-go v1.5.9 // indirect
@@ -30,7 +31,7 @@ require (
 	github.com/pelletier/go-toml v1.9.3 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
-	golang.org/x/crypto v0.3.0 // indirect
-	golang.org/x/sys v0.2.0 // indirect
-	google.golang.org/protobuf v1.28.0 // indirect
+	golang.org/x/crypto v0.9.0 // indirect
+	golang.org/x/sys v0.8.0 // indirect
+	google.golang.org/protobuf v1.30.0 // indirect
 )
