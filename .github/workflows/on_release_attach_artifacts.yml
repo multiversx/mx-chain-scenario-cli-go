@@ -61,9 +61,8 @@ jobs:
         run: |
           mkdir -p ${BUILD_DIR}
 
-          sudo patchelf --set-soname libwasmer_linux_amd64.so ${VM_GO_DIR}/wasmer/libwasmer_linux_amd64.so
-
-          cd ${GITHUB_WORKSPACE}/cmd/mx-scenario-go && go build -o "${BUILD_DIR}/mx-scenario-go"
+          cd ${GITHUB_WORKSPACE}/cmd/mx-scenario-go
+          go build -o "${BUILD_DIR}/mx-scenario-go"
 
       - name: Smoke test
         run: |
@@ -74,12 +73,15 @@ jobs:
       - name: Package
         run: |
           if [[ "$GOOS" == linux && "$GOARCH" == amd64 ]]; then
-            cp --verbose ${VM_GO_DIR}/wasmer2/libvmexeccapi.so ${BUILD_DIR}/libvmexeccapi.so
-            cp --verbose ${VM_GO_DIR}/wasmer/libwasmer_linux_amd64.so ${BUILD_DIR}/libwasmer_linux_amd64.so
+            cp --verbose --no-preserve=mode,ownership ${VM_GO_DIR}/wasmer2/libvmexeccapi.so ${BUILD_DIR}/libvmexeccapi.so
+            cp --verbose --no-preserve=mode,ownership ${VM_GO_DIR_LEGACY}/wasmer/libwasmer_linux_amd64.so ${BUILD_DIR}/libwasmer_linux_amd64.so
+
+            patchelf --replace-needed libvmexeccapi.so ./libvmexeccapi.so ./mx-scenario-go 
+            patchelf --replace-needed libwasmer_linux_amd64.so ./libwasmer_linux_amd64.so ./mx-scenario-go 
           fi
           if [[ "$GOOS" == darwin && "$GOARCH" == amd64 ]]; then
-            cp -v ${VM_GO_DIR}/wasmer2/libvmexeccapi.so ${BUILD_DIR}/libvmexeccapi.dylib
-            cp -v ${VM_GO_DIR}/wasmer/libwasmer_darwin_amd64.dylib ${BUILD_DIR}/libwasmer_darwin_amd64.dylib
+            cp -v --no-preserve=mode,ownership ${VM_GO_DIR}/wasmer2/libvmexeccapi.so ${BUILD_DIR}/libvmexeccapi.dylib
+            cp -v --no-preserve=mode,ownership ${VM_GO_DIR}/wasmer/libwasmer_darwin_amd64.dylib ${BUILD_DIR}/libwasmer_darwin_amd64.dylib
           fi
 
           ls -al ${BUILD_DIR}
