@@ -65,7 +65,7 @@ jobs:
       - name: Smoke test
         run: |
           # Remove all downloaded Go packages, so that we can test the binary's independence from them (think of Wasmer libraries).
-          rm -rf ${GOPATH}/pkg/mod
+          sudo rm -rf ${GOPATH}/pkg/mod
           ${BUILD_DIR}/mx-scenario-go --help
 
       - name: Package
