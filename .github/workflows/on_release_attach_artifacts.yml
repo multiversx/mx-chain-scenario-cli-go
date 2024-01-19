@@ -77,7 +77,7 @@ jobs:
           if [[ "$GOOS" == darwin && "$GOARCH" == amd64 ]]; then
             cp -v ${VM_GO_DIR}/wasmer2/libvmexeccapi.so ${BUILD_DIR}/libvmexeccapi.dylib
             cp -v ${VM_GO_DIR}/wasmer/libwasmer_darwin_amd64.dylib ${BUILD_DIR}/libwasmer_darwin_amd64.dylib
-            install_name_tool -id @rpath/libwasmer_darwin_amd64.dylib ${BUILD_DIR}/libvmexeccapi.dylib
+            install_name_tool -id @rpath/libwasmer_darwin_amd64.dylib ${BUILD_DIR}/libwasmer_darwin_amd64.dylib
           fi
 
       - name: Smoke test
