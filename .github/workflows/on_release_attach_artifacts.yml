@@ -1,9 +1,9 @@
 name: Attach artifacts on release
 
-# on:
-#   workflow_dispatch:
-#   release:
-#     types: [published]
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
 
 on:
   pull_request:
@@ -70,28 +70,22 @@ jobs:
             cp --verbose ${VM_GO_DIR}/wasmer2/libvmexeccapi.so ${BUILD_DIR}/libvmexeccapi.so
           fi
           if [[ "$GOOS" == darwin && "$GOARCH" == amd64 ]]; then
-            cp --verbose ${VM_GO_DIR}/wasmer2/libvmexeccapi.so ${BUILD_DIR}/libvmexeccapi.dylib
+            cp -v ${VM_GO_DIR}/wasmer2/libvmexeccapi.so ${BUILD_DIR}/libvmexeccapi.dylib
           fi
 
           ls -al ${BUILD_DIR}
-
-          #cd ${BUILD_DIR}
-          #zip "${GITHUB_WORKSPACE}/${ARCHIVE}" *
-          #stat ${GITHUB_WORKSPACE}/${ARCHIVE}
+          zip -r ${ARCHIVE} ${BUILD_DIR}
 
       - name: Save artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: mx-scenario-go.zip
-          path:  ${{ env.BUILD_DIR }}
+          name: build-output
+          path:  ${{ env.ARCHIVE }}
           if-no-files-found: error
 
-      # - name: Upload artifacts to release,
-      #   if: ${{ inputs.attach_to_existing_release == true || inputs.create_release == true }}
-      #   run: |
-      #     gh release upload ${{ github.ref_name }} $(find /home/runner/work/output-from-docker/**/*.wasm -type f)
-      #     gh release upload ${{ github.ref_name }} $(find /home/runner/work/output-from-docker/**/*.source.json -type f)
-      #     gh release upload ${{ github.ref_name }} $(find /home/runner/work/output-from-docker/**/*.abi.json -type f)
-      #     gh release upload ${{ github.ref_name }} $(find /home/runner/work/output-from-docker/artifacts.json -type f)
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload artifacts to release
+        if: ${{ github.event_name == 'release' }}
+        run: |
+          gh release upload ${{ github.ref_name }} ${{ env.ARCHIVE}}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
