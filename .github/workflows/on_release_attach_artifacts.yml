@@ -83,14 +83,12 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: mx-scenario-go.zip
-          path:  ${BUILD_DIR}
+          path:  ${{ env.BUILD_DIR }}
           if-no-files-found: error
 
-      # - name: Upload artifacts to release, edit release notes
+      # - name: Upload artifacts to release,
       #   if: ${{ inputs.attach_to_existing_release == true || inputs.create_release == true }}
       #   run: |
-      #     gh release edit ${{ github.ref_name }} --notes-file=release_notes.txt
-
       #     gh release upload ${{ github.ref_name }} $(find /home/runner/work/output-from-docker/**/*.wasm -type f)
       #     gh release upload ${{ github.ref_name }} $(find /home/runner/work/output-from-docker/**/*.source.json -type f)
       #     gh release upload ${{ github.ref_name }} $(find /home/runner/work/output-from-docker/**/*.abi.json -type f)
