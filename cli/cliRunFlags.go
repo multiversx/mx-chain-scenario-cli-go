@@ -4,9 +4,8 @@ import (
 	"fmt"
 
 	scenclibase "github.com/multiversx/mx-chain-scenario-go/clibase"
-	mc "github.com/multiversx/mx-chain-scenario-go/controller"
-	scenexec "github.com/multiversx/mx-chain-scenario-go/executor"
-
+	scenexec "github.com/multiversx/mx-chain-scenario-go/scenario/executor"
+	scenio "github.com/multiversx/mx-chain-scenario-go/scenario/io"
 	vm15scenario "github.com/multiversx/mx-chain-vm-go/scenario"
 	vm15wasmer "github.com/multiversx/mx-chain-vm-go/wasmer"
 	vm15wasmer2 "github.com/multiversx/mx-chain-vm-go/wasmer2"
@@ -60,7 +59,7 @@ func parseVMFlag(cCtx *cli.Context) string {
 }
 
 func (*runConfig) ParseFlags(cCtx *cli.Context) scenclibase.CLIRunOptions {
-	runOptions := &mc.RunScenarioOptions{
+	runOptions := &scenio.RunScenarioOptions{
 		ForceTraceGas: cCtx.Bool("force-trace-gas"),
 	}
 

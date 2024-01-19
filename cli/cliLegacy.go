@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 
 	scenclibase "github.com/multiversx/mx-chain-scenario-go/clibase"
-	mc "github.com/multiversx/mx-chain-scenario-go/controller"
+	scenio "github.com/multiversx/mx-chain-scenario-go/scenario/io"
 	vm15scenario "github.com/multiversx/mx-chain-vm-go/scenario"
 	vm15wasmer "github.com/multiversx/mx-chain-vm-go/wasmer"
 	vm15wasmer2 "github.com/multiversx/mx-chain-vm-go/wasmer2"
@@ -41,7 +41,7 @@ func parseOptionFlags() scenclibase.CLIRunOptions {
 	}
 
 	return scenclibase.CLIRunOptions{
-		RunOptions: &mc.RunScenarioOptions{
+		RunOptions: &scenio.RunScenarioOptions{
 			ForceTraceGas: *forceTraceGas,
 		},
 		VMBuilder: vmBuilder,
@@ -84,5 +84,5 @@ func FmtLegacyCli() {
 		panic("One argument expected - the root path where to search.")
 	}
 
-	_ = mc.FormatAllInFolder(os.Args[1])
+	_ = scenio.FormatAllInFolder(os.Args[1])
 }

@@ -3,9 +3,9 @@ module github.com/multiversx/mx-chain-scenario-cli-go
 go 1.20
 
 require (
-	github.com/multiversx/mx-chain-scenario-go v1.2.2-0.20240111035159-6f630626b903
-	github.com/multiversx/mx-chain-vm-go v1.5.23-0.20240111035925-1b66e5a96e8d
-	github.com/multiversx/mx-chain-vm-v1_4-go v1.4.93-0.20240111073521-3f1080ebc47a
+	github.com/multiversx/mx-chain-scenario-go v1.3.0
+	github.com/multiversx/mx-chain-vm-go v1.5.25
+	github.com/multiversx/mx-chain-vm-v1_4-go v1.4.93
 	github.com/urfave/cli/v2 v2.27.1
 )
 
