@@ -83,7 +83,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: mx-scenario-go.zip
-          path:  ${GITHUB_WORKSPACE}/cmd/mx-scenario-go
+          path:  ${BUILD_DIR}
           if-no-files-found: error
 
       # - name: Upload artifacts to release, edit release notes
