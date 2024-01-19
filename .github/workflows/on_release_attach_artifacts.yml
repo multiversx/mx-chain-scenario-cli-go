@@ -43,13 +43,14 @@ jobs:
       # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
       - name: Set environment variables
         run: |
+          GOOS=$(go env GOOS)
           GOARCH=$(go env GOARCH)
           GOPATH=$(go env GOPATH)
 
           BUILD_DIR=${GITHUB_WORKSPACE}/build
           ARCHIVE="mx_scenario_go""_""$GOOS""_""$GOARCH"".zip"
           
-          VM_GO_VERSION=$(cat $GO_MOD_PATH/go.mod | grep mx-chain-vm-go | sort -n | tail -n -1| awk -F '/' '{print$3}'| sed 's/ /@/g')
+          export VM_GO_VERSION=$(cat $GO_MOD_PATH/go.mod | grep mx-chain-vm-go | sort -n | tail -n -1| awk -F '/' '{print$3}'| sed 's/ /@/g')
           VM_GO_DIR=${GOPATH}/pkg/mod/github.com/multiversx/${VM_GO_VERSION}
 
           echo "GOOS=${GOOS}" >> $GITHUB_ENV
@@ -66,10 +67,10 @@ jobs:
       - name: Package
         run: |
           if [[ "$GOOS" == linux && "$GOARCH" == amd64 ]]; then
-            cp ${VM_GO_DIR}/wasmer2/libvmexeccapi.so ${BUILD_DIR}/libvmexeccapi.so
+            cp --verbose ${VM_GO_DIR}/wasmer2/libvmexeccapi.so ${BUILD_DIR}/libvmexeccapi.so
           fi
           if [[ "$GOOS" == darwin && "$GOARCH" == amd64 ]]; then
-            cp ${VM_GO_DIR}/wasmer2/libvmexeccapi.so ${BUILD_DIR}/libvmexeccapi.dylib
+            cp --verbose ${VM_GO_DIR}/wasmer2/libvmexeccapi.so ${BUILD_DIR}/libvmexeccapi.dylib
           fi
 
           ls -al ${BUILD_DIR}
