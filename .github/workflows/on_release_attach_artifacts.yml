@@ -7,7 +7,7 @@ name: Attach artifacts on release
 
 on:
   pull_request:
-    branches: *
+    branches: ["cli"]
 
 permissions:
   contents: write
