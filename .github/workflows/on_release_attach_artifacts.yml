@@ -16,7 +16,7 @@ jobs:
   build:
     strategy:
       matrix:
-        runs-on: [ubuntu-22.04]
+        runs-on: [ubuntu-22.04, macos-11.0]
     runs-on: ${{ matrix.runs-on }}
     name: Build
     steps:
@@ -60,7 +60,8 @@ jobs:
 
       - name: Build
         run: |
-          cd ${GITHUB_WORKSPACE}/cmd/mx-scenario-go && go build .
+          mkdir -p ${BUILD_DIR}
+          cd ${GITHUB_WORKSPACE}/cmd/mx-scenario-go && go build -o "${BUILD_DIR}/mx-scenario-go"
       
       - name: Package
         run: |
