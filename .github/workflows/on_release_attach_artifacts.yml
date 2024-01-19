@@ -14,7 +14,7 @@ jobs:
   build:
     strategy:
       matrix:
-        runs-on: [macos-11.0] #ubuntu-22.04
+        runs-on: [macos-11] #ubuntu-22.04
     runs-on: ${{ matrix.runs-on }}
     name: Build
     steps:
@@ -75,7 +75,7 @@ jobs:
             patchelf --set-rpath "\$ORIGIN" ${BUILD_DIR}/mx-scenario-go
           fi
           if [[ "$GOOS" == darwin && "$GOARCH" == amd64 ]]; then
-            cp -v ${VM_GO_DIR}/wasmer2/libvmexeccapi.so ${BUILD_DIR}/libvmexeccapi.dylib
+            cp -v ${VM_GO_DIR}/wasmer2/libvmexeccapi.dylib ${BUILD_DIR}/libvmexeccapi.dylib
             cp -v ${VM_GO_DIR}/wasmer/libwasmer_darwin_amd64.dylib ${BUILD_DIR}/libwasmer_darwin_amd64.dylib
             install_name_tool -id "@rpath/libwasmer_darwin_amd64.dylib" ${BUILD_DIR}/libwasmer_darwin_amd64.dylib
             install_name_tool -add_rpath "@loader_path" ${BUILD_DIR}/mx-scenario-go
