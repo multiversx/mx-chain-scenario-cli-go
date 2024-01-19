@@ -64,12 +64,6 @@ jobs:
           cd ${GITHUB_WORKSPACE}/cmd/mx-scenario-go
           go build -o "${BUILD_DIR}/mx-scenario-go"
 
-      - name: Smoke test
-        run: |
-          # Remove all downloaded Go packages, so that we can test the binary's independence from them (think of Wasmer libraries).
-          sudo rm -rf ${GOPATH}/pkg/mod
-          ${BUILD_DIR}/mx-scenario-go --help
-
       - name: Package
         run: |
           if [[ "$GOOS" == linux && "$GOARCH" == amd64 ]]; then
@@ -86,6 +80,12 @@ jobs:
 
           ls -al ${BUILD_DIR}
           zip -r -j ${ARCHIVE} ${BUILD_DIR}
+
+      - name: Smoke test
+        run: |
+          # Remove all downloaded Go packages, so that we can test the binary's independence from them (think of Wasmer libraries).
+          sudo rm -rf ${GOPATH}/pkg/mod
+          ${BUILD_DIR}/mx-scenario-go --help
 
       - name: Save artifacts
         uses: actions/upload-artifact@v3
