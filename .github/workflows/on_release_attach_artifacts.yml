@@ -1,9 +1,13 @@
 name: Attach artifacts on release
 
+# on:
+#   workflow_dispatch:
+#   release:
+#     types: [published]
+
 on:
-  workflow_dispatch:
-  release:
-    types: [published]
+  pull_request:
+    branches: *
 
 permissions:
   contents: write
