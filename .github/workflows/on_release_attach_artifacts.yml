@@ -5,7 +5,7 @@ on:
   release:
     types: [published]
   pull_request:
-    branches: ["cli"]
+    branches: ["main", "master"]
 
 permissions:
   contents: write
@@ -37,7 +37,6 @@ jobs:
               dep ensure
           fi
 
-
       # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
       - name: Set environment variables
         run: |
@@ -53,6 +52,7 @@ jobs:
 
           echo "GOOS=${GOOS}" >> $GITHUB_ENV
           echo "GOARCH=${GOARCH}" >> $GITHUB_ENV
+          echo "GOPATH=${GOPATH}" >> $GITHUB_ENV
           echo "BUILD_DIR=${BUILD_DIR}" >> $GITHUB_ENV
           echo "ARCHIVE=${ARCHIVE}" >> $GITHUB_ENV
           echo "VM_GO_DIR=${VM_GO_DIR}" >> $GITHUB_ENV
@@ -61,7 +61,13 @@ jobs:
         run: |
           mkdir -p ${BUILD_DIR}
           cd ${GITHUB_WORKSPACE}/cmd/mx-scenario-go && go build -o "${BUILD_DIR}/mx-scenario-go"
-      
+
+      - name: Smoke test
+        run: |
+          # Remove all downloaded Go packages, so that we can test the binary's independence from them (think of Wasmer libraries).
+          rm -rf ${GOPATH}/pkg/mod
+          ${BUILD_DIR}/mx-scenario-go --help
+
       - name: Package
         run: |
           if [[ "$GOOS" == linux && "$GOARCH" == amd64 ]]; then
