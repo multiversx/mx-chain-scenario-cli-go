@@ -68,7 +68,7 @@ jobs:
         run: |
           if [[ "$GOOS" == linux && "$GOARCH" == amd64 ]]; then
             cp --verbose --no-preserve=mode,ownership ${VM_GO_DIR}/wasmer2/libvmexeccapi.so ${BUILD_DIR}/libvmexeccapi.so
-            cp --verbose --no-preserve=mode,ownership ${VM_GO_DIR_LEGACY}/wasmer/libwasmer_linux_amd64.so ${BUILD_DIR}/libwasmer_linux_amd64.so
+            cp --verbose --no-preserve=mode,ownership ${VM_GO_DIR}/wasmer/libwasmer_linux_amd64.so ${BUILD_DIR}/libwasmer_linux_amd64.so
 
             patchelf --replace-needed libvmexeccapi.so ./libvmexeccapi.so ./mx-scenario-go 
             patchelf --replace-needed libwasmer_linux_amd64.so ./libwasmer_linux_amd64.so ./mx-scenario-go 
