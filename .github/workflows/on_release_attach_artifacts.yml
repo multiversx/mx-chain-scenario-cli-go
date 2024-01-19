@@ -72,7 +72,7 @@ jobs:
           fi
 
           ls -al ${BUILD_DIR}
-          zip -r ${ARCHIVE} ${BUILD_DIR}
+          zip -r -j ${ARCHIVE} ${BUILD_DIR}
 
       - name: Save artifacts
         uses: actions/upload-artifact@v3
