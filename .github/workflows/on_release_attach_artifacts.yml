@@ -73,13 +73,27 @@ jobs:
             patchelf --replace-needed libvmexeccapi.so libvmexeccapi.so ${BUILD_DIR}/mx-scenario-go 
             patchelf --replace-needed libwasmer_linux_amd64.so libwasmer_linux_amd64.so ${BUILD_DIR}/mx-scenario-go
             patchelf --set-rpath "\$ORIGIN" ${BUILD_DIR}/mx-scenario-go
+
+            ldd ${BUILD_DIR}/mx-scenario-go
           fi
           if [[ "$GOOS" == darwin && "$GOARCH" == amd64 ]]; then
             cp -v ${VM_GO_DIR}/wasmer2/libvmexeccapi.dylib ${BUILD_DIR}/libvmexeccapi.dylib
             cp -v ${VM_GO_DIR}/wasmer/libwasmer_darwin_amd64.dylib ${BUILD_DIR}/libwasmer_darwin_amd64.dylib
+            install_name_tool -id "@rpath/libvmexeccapi.dylib" ${BUILD_DIR}/libvmexeccapi.dylib
             install_name_tool -id "@rpath/libwasmer_darwin_amd64.dylib" ${BUILD_DIR}/libwasmer_darwin_amd64.dylib
             install_name_tool -add_rpath "@loader_path" ${BUILD_DIR}/mx-scenario-go
+
+            otool -L ${BUILD_DIR}/mx-scenario-go
           fi
+
+      - name: Smoke test
+        run: |
+          # Remove all downloaded Go packages, so that we can test the binary's independence from them (think of Wasmer libraries).
+          sudo rm -rf ${GOPATH}/pkg/mod
+          # Test the binary in different current directories.
+          cd ${BUILD_DIR} && ./mx-scenario-go --help
+          cd ${GITHUB_WORKSPACE} && ${BUILD_DIR}/mx-scenario-go --help
+          cd / && ${BUILD_DIR}/mx-scenario-go --help
 
       - name: Package
         run: |
@@ -92,12 +106,6 @@ jobs:
           name: build-output
           path:  ${{ env.ARCHIVE }}
           if-no-files-found: error
-
-      - name: Smoke test
-        run: |
-          # Remove all downloaded Go packages, so that we can test the binary's independence from them (think of Wasmer libraries).
-          sudo rm -rf ${GOPATH}/pkg/mod
-          ${BUILD_DIR}/mx-scenario-go --help
 
       - name: Upload artifacts to release
         if: ${{ github.event_name == 'release' }}
