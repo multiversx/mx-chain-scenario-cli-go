@@ -99,7 +99,8 @@ jobs:
 
       - name: Package build output
         run: |
-          chown -R $USER:$USER ${BUILD_DIR}
+          sudo chown -R $USER:$USER ${BUILD_DIR}
+          chmod -R 755 ${BUILD_DIR}
           ls -al ${BUILD_DIR}
           zip -r -j ${ARCHIVE} ${BUILD_DIR}
 
