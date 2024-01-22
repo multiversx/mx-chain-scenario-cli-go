@@ -99,6 +99,7 @@ jobs:
 
       - name: Package build output
         run: |
+          chown -R $USER:$USER ${BUILD_DIR}
           ls -al ${BUILD_DIR}
           zip -r -j ${ARCHIVE} ${BUILD_DIR}
 
