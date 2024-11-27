@@ -3,9 +3,9 @@ module github.com/multiversx/mx-chain-scenario-cli-go
 go 1.20
 
 require (
-	github.com/multiversx/mx-chain-scenario-go v1.3.0
-	github.com/multiversx/mx-chain-vm-go v1.5.25
-	github.com/multiversx/mx-chain-vm-v1_4-go v1.4.93
+	github.com/multiversx/mx-chain-scenario-go v1.4.4
+	github.com/multiversx/mx-chain-vm-go v1.5.37
+	github.com/multiversx/mx-chain-vm-v1_4-go v1.4.98
 	github.com/urfave/cli/v2 v2.27.1
 )
 
@@ -23,10 +23,11 @@ require (
 	github.com/herumi/bls-go-binary v1.28.2 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/mr-tron/base58 v1.2.0 // indirect
-	github.com/multiversx/mx-chain-core-go v1.2.14 // indirect
-	github.com/multiversx/mx-chain-crypto-go v1.2.8 // indirect
-	github.com/multiversx/mx-chain-logger-go v1.0.13 // indirect
-	github.com/multiversx/mx-chain-vm-common-go v1.5.9 // indirect
+	github.com/multiversx/mx-chain-core-go v1.2.22 // indirect
+	github.com/multiversx/mx-chain-crypto-go v1.2.12 // indirect
+	github.com/multiversx/mx-chain-logger-go v1.0.15 // indirect
+	github.com/multiversx/mx-chain-storage-go v1.0.16 // indirect
+	github.com/multiversx/mx-chain-vm-common-go v1.5.16 // indirect
 	github.com/multiversx/mx-components-big-int v1.0.0 // indirect
 	github.com/pelletier/go-toml v1.9.3 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
