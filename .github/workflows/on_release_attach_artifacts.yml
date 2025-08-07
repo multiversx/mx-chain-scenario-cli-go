@@ -70,7 +70,6 @@ jobs:
             cp --verbose --no-preserve=mode,ownership ${VM_GO_DIR}/wasmer2/libvmexeccapi.so ${BUILD_DIR}/libvmexeccapi.so
 
             patchelf --replace-needed libvmexeccapi.so libvmexeccapi.so ${BUILD_DIR}/mx-scenario-go 
-            patchelf --replace-needed libwasmer_linux_amd64.so libwasmer_linux_amd64.so ${BUILD_DIR}/mx-scenario-go
             patchelf --set-rpath "\$ORIGIN" ${BUILD_DIR}/mx-scenario-go
 
             ldd ${BUILD_DIR}/mx-scenario-go
