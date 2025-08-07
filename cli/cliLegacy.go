@@ -9,7 +9,6 @@ import (
 	scenclibase "github.com/multiversx/mx-chain-scenario-go/clibase"
 	scenio "github.com/multiversx/mx-chain-scenario-go/scenario/io"
 	vm15scenario "github.com/multiversx/mx-chain-vm-go/scenario"
-	vm15wasmer "github.com/multiversx/mx-chain-vm-go/wasmer"
 	vm15wasmer2 "github.com/multiversx/mx-chain-vm-go/wasmer2"
 )
 
@@ -34,7 +33,7 @@ func parseOptionFlags() scenclibase.CLIRunOptions {
 
 	vmBuilder := vm15scenario.NewScenarioVMHostBuilder()
 	if *useWasmer1 {
-		vmBuilder.OverrideVMExecutor = vm15wasmer.ExecutorFactory()
+		panic("wasmer1 no longer available")
 	}
 	if *useWasmer2 {
 		vmBuilder.OverrideVMExecutor = vm15wasmer2.ExecutorFactory()
