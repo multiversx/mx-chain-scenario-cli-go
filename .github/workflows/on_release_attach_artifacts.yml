@@ -18,10 +18,10 @@ jobs:
     runs-on: ${{ matrix.runs-on }}
     name: Build
     steps:
-      - name: Set up Go 1.20.7
+      - name: Set up Go 1.23.6
         uses: actions/setup-go@v3
         with:
-          go-version: 1.20.7
+          go-version: 1.23.6
         id: go
 
       - name: Check out code into the Go module directory
@@ -68,7 +68,6 @@ jobs:
         run: |
           if [[ "$GOOS" == linux && "$GOARCH" == amd64 ]]; then
             cp --verbose --no-preserve=mode,ownership ${VM_GO_DIR}/wasmer2/libvmexeccapi.so ${BUILD_DIR}/libvmexeccapi.so
-            cp --verbose --no-preserve=mode,ownership ${VM_GO_DIR}/wasmer/libwasmer_linux_amd64.so ${BUILD_DIR}/libwasmer_linux_amd64.so
 
             patchelf --replace-needed libvmexeccapi.so libvmexeccapi.so ${BUILD_DIR}/mx-scenario-go 
             patchelf --replace-needed libwasmer_linux_amd64.so libwasmer_linux_amd64.so ${BUILD_DIR}/mx-scenario-go
@@ -78,7 +77,6 @@ jobs:
           fi
           if [[ "$GOOS" == darwin && "$GOARCH" == amd64 ]]; then
             cp -v ${VM_GO_DIR}/wasmer2/libvmexeccapi.dylib ${BUILD_DIR}/libvmexeccapi.dylib
-            cp -v ${VM_GO_DIR}/wasmer/libwasmer_darwin_amd64.dylib ${BUILD_DIR}/libwasmer_darwin_amd64.dylib
 
             install_name_tool -id "@rpath/libvmexeccapi.dylib" ${BUILD_DIR}/libvmexeccapi.dylib
             install_name_tool -id "@rpath/libwasmer_darwin_amd64.dylib" ${BUILD_DIR}/libwasmer_darwin_amd64.dylib
