@@ -7,7 +7,6 @@ import (
 	scenexec "github.com/multiversx/mx-chain-scenario-go/scenario/executor"
 	scenio "github.com/multiversx/mx-chain-scenario-go/scenario/io"
 	vm15scenario "github.com/multiversx/mx-chain-vm-go/scenario"
-	vm15wasmer "github.com/multiversx/mx-chain-vm-go/wasmer"
 	vm15wasmer2 "github.com/multiversx/mx-chain-vm-go/wasmer2"
 	vm14scenario "github.com/multiversx/mx-chain-vm-v1_4-go/scenario"
 	cli "github.com/urfave/cli/v2"
@@ -35,7 +34,7 @@ func (*runConfig) GetFlags() []cli.Flag {
 		},
 		&cli.BoolFlag{
 			Name:  "wasmer1",
-			Usage: "use the wasmer1 executor`",
+			Usage: "use the wasmer1 executor (no longer available)`",
 		},
 		&cli.BoolFlag{
 			Name:  "wasmer2",
@@ -69,7 +68,7 @@ func (*runConfig) ParseFlags(cCtx *cli.Context) scenclibase.CLIRunOptions {
 	case vm15FlagValue:
 		vm15Builder := vm15scenario.NewScenarioVMHostBuilder()
 		if cCtx.Bool("wasmer1") {
-			vm15Builder.OverrideVMExecutor = vm15wasmer.ExecutorFactory()
+			panic("wasmer1 no longer available")
 		}
 		if cCtx.Bool("wasmer2") {
 			vm15Builder.OverrideVMExecutor = vm15wasmer2.ExecutorFactory()
